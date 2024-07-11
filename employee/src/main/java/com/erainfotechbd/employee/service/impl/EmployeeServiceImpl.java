@@ -1,6 +1,8 @@
 package com.erainfotechbd.employee.service.impl;
 
 import com.erainfotechbd.employee.Dao.EmployeeDao;
+import com.erainfotechbd.employee.Dao.EmployeeDaoMobile;
+import com.erainfotechbd.employee.Dao.EmployeeEmpIdDao;
 import com.erainfotechbd.employee.dto.EmployeeDto;
 import com.erainfotechbd.employee.dto.ResponseEmpDto;
 import com.erainfotechbd.employee.entity.Employee;
@@ -9,6 +11,7 @@ import com.erainfotechbd.employee.repository.EmployeeRepository;
 import com.erainfotechbd.employee.service.EmployeeService;
 import org.hibernate.JDBCException;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -21,6 +24,12 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private ModelMapper mapper;
+
+    @Autowired
+    private EmployeeEmpIdDao employeeEmpIdDao;
+
+    @Autowired
+    private EmployeeDaoMobile employeeDaoMobile;
 
     private EmployeeDao employeeDao;
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, ModelMapper mapper, EmployeeDao employeeDao) {
@@ -218,7 +227,37 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
+    public Map<String, Object> employeeProcedureByEmpId(EmployeeDto employeeDto)  {
 
+
+        Map<String, Object>  map=new HashMap<>();
+
+
+        System.out.println("employee dto : "+employeeDto);
+        EmployeeDto employeeDtoResponse=employeeEmpIdDao.employeeInformations(employeeDto);
+
+        map.put("id", employeeDtoResponse.getId());
+        map.put("empMobile", employeeDtoResponse.getEmpMobile());
+        // map.put("empMobile", employeeDtoResponse.getEmpMobile());
+        map.put("empSalary", employeeDtoResponse.getEmpSalary());
+
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> empProcedureByMobile(EmployeeDto employeeDto) {
+
+        Map<String , Object> map= new HashMap<>();
+        EmployeeDto response=employeeDaoMobile.employeeInfoByMobile(employeeDto);
+
+        map.put("Id" , response.getId());
+        map.put("empId" , response.getEmpId());
+        map.put("empName" , response.getEmpName());
+        map.put("empSalary" , response.getEmpSalary());
+
+        return map;
+
+    }
 
 
     // entity into dto

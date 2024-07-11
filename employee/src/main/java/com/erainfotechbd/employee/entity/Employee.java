@@ -1,6 +1,7 @@
 package com.erainfotechbd.employee.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 }
 )
-
+@Builder
 public class Employee {
     @Id
     @GeneratedValue (
@@ -35,4 +36,10 @@ public class Employee {
     @Column(name="empSalary")
     private Long empSalary;
 
+    public Employee(long empId, String empName, String empMobile, long empSalary) {
+        this.empId=empId;
+        this.empName=empName;
+        this.empMobile=empMobile;
+        this.empSalary=empSalary;
+    }
 }

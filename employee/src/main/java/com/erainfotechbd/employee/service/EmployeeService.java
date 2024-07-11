@@ -49,5 +49,8 @@ public interface EmployeeService {
 
     public Map<String, Object> employeeProcedure(EmployeeDto employeeDto);
 
+    public Map<String, Object> employeeProcedureByEmpId(EmployeeDto employeeDto);
+
+    public Map<String, Object> empProcedureByMobile (EmployeeDto employeeDto);
 
 }

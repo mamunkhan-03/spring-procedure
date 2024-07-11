@@ -133,4 +133,15 @@ public class EmployeeController {
         return employeeService.employeeProcedure(employeeDto);
     }
 
+    @PostMapping("/procedure/empId")
+    public Map<String , Object> employeeProcedure (@RequestBody EmployeeDto employeeDto){
+        System.out.println("employee dto : "+employeeDto);
+        return employeeService.employeeProcedureByEmpId(employeeDto);
+    }
+
+    @PostMapping("/procedure/findByMobile")
+    public Map<String , Object> employeeProcedureMobile(@RequestBody EmployeeDto employeeDto){
+        return employeeService.empProcedureByMobile(employeeDto);
+    }
+
 }
